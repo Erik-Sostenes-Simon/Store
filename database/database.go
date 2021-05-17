@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ConexionDB() *sql.DB {
+func ConnectionDB() *sql.DB {
 	mysql := os.Getenv("mysql")
 	root := os.Getenv("root")
 	password := os.Getenv("Loindeseable09")
