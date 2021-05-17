@@ -5,12 +5,13 @@ import (
 	"github.com/labstack/echo"
 )
 
-func Routes(e *echo.Echo) {
+func Routes(e *echo.Echo, storage handlers.Storage) {
+	h := handlers.NewProduct(storage)
 	route := e.Group("/v1/products/")
 
-	route.POST("create", handlers.Create)
-	route.DELETE("delete:id", handlers.Delete)
-	route.PUT("update:id", handlers.Update)
-	route.GET("get-all", handlers.GetAll)
-	route.GET("get:id", handlers.GetById)
+	route.POST("create", h.Create)
+	route.DELETE("delete:id", h.Delete)
+	route.PUT("update:id", h.Update)
+	route.GET("get-all", h.GetAll)
+	route.GET("get:id", h.GetById)
 }

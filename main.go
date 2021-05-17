@@ -11,9 +11,10 @@ import (
 func main() {
 	server := echo.New()
 
-	routes.Routes(server)
+	p := database.NewProduct()
+	routes.Routes(server, p)
 
-	db := database.ConnectionDB()
+	db := p.ConnectionDB()
 
 	if err := db.Ping(); err != nil {
 		panic(err.Error())
