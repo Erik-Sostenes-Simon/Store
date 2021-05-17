@@ -3,16 +3,12 @@ package database
 import (
 	"database/sql"
 	"log"
-	"os"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
 func ConnectionDB() *sql.DB {
-	mysql := os.Getenv("mysql")
-	root := os.Getenv("root")
-	password := os.Getenv("Loindeseable09")
-	table := os.Getenv("store")
-
-	db, err := sql.Open(mysql, root+":"+password+"@tcp(127.0.0.1:3306)/"+table)
+	db, err := sql.Open("mysql", "root:Loindeseable09@tcp(127.0.0.1:3306)/store")
 
 	if err != nil {
 		log.Panic("Ocurrio un problema al conectarse a la base de datos")
