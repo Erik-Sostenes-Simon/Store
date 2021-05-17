@@ -18,3 +18,17 @@ func Create(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, p)
 }
+
+func Delete(c echo.Context) error {
+	return nil
+}
+
+func Update(c echo.Context) error {
+	return nil
+}
+func GetAll(c echo.Context) error {
+	return nil
+}
+func GetById(c echo.Context) error {
+	return nil
+}
