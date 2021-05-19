@@ -28,7 +28,7 @@ func (p *product) Update(c echo.Context) error {
 }
 func (p *product) GetAll(c echo.Context) error {
 
-	return c.String(http.StatusOK, "Hola mundo")
+	return c.HTML(http.StatusOK, "<h1>Hello world</h1>")
 }
 func (p *product) GetById(c echo.Context) error {
 	p1 := &model.Product{

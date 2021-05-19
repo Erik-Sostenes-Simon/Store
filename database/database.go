@@ -2,6 +2,8 @@ package database
 
 import (
 	"database/sql"
+	"errors"
+	"fmt"
 	"log"
 
 	"github.com/Proyect/store/handlers"
@@ -26,10 +28,36 @@ func (p *products) ConnectionDB() *sql.DB {
 	}
 	log.Print("Conexión establecida")
 
-	return db
+	p.db = db
+	return p.db
 }
 
 func (p *products) Create(product *model.Product) error {
+	if product == nil {
+		return errors.New("El producto esta vacío")
+
+	}
+	stmt, err := p.db.Prepare("INSERT INTO Product(idProduct, name, price, saleDate, idCategory) VALUES (?, ?, ?, ?, ?, ? )")
+	if err != nil {
+		return errors.New("Ocurrio un error en el Prepare")
+	}
+	defer stmt.Close()
+
+	resp, err := stmt.Exec(product.IdProduct, product.Name, product.Price, product.SaleDate, product.IdCategory)
+	if err != nil {
+		return errors.New("Ocurrio un error en el Exec")
+	}
+
+	id, err := resp.LastInsertId()
+	if err != nil {
+		return errors.New("Ocurrio al obtener el last Insert Id")
+	}
+	rowsAff, err := resp.RowsAffected()
+	if err != nil {
+		return errors.New("Ocurrio al obtener el Rows Affected")
+	}
+	fmt.Print(id, rowsAff)
+
 	return nil
 }
 func (p *products) Delete(id int) error {
